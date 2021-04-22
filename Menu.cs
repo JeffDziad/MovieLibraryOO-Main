@@ -1,77 +1,77 @@
 ﻿using System;
 using System.Collections.Generic;
 using ConsoleTables;
-using MovieLibraryOO.Data;
-using MovieLibraryOO.Models;
 
 namespace MovieLibraryOO
 {
 
-    public class Menu : IMenu
+    public static class Menu
     {
-        private readonly char _exitKey = 'X';
-        private readonly List<char> _validChoices = new List<char> { '1', '2' };
-        private IContext _context;
+        static Boolean isFinished = false;
 
-        public Menu(IContext context) // default constructor
+        public static Boolean getIsFinished() 
         {
-            _context = context;
-
-            DisplayMenu();
+            return isFinished;
         }
 
-        public bool IsValid { get; set; }
-
-        private void DisplayMenu()
+        public static void MainMenu()
         {
-            Console.WriteLine("1. List movies");
-            Console.WriteLine("2. Add Movie to list");
+            Console.WriteLine(@"█▀▄▀█ █▀▀ █▄░█ █░█________________________________________________________________");
+            Console.WriteLine(@"█░▀░█ ██▄ █░▀█ █▄█");
+            Console.WriteLine();
+            Console.WriteLine("0. Exit");
+            Console.WriteLine("1. Movie Search");
+            Console.WriteLine("2. Add Movie");
+            Console.WriteLine("3. Update Movie");
+            Console.WriteLine("4. Delete Movie\n");
+            Console.Write("Menu Choice: ");
+            HandleInput(Console.ReadLine());
         }
 
-        public char GetMainMenuSelection()
+        public static void HandleInput(string input)
         {
-            IsValid = true;
-
-            Console.Write($"Select ({string.Join(',', _validChoices)},{_exitKey})> ");
-            var key = Console.ReadKey().KeyChar;
-            while (!_validChoices.Contains(key))
+            int inputNum = 0;
+            if(input == null || input == "")
             {
-                if (key == _exitKey || char.ToLower(key) == char.ToLower(_exitKey))
+                Console.Clear();
+                Logging.logX("Please enter a valid menu option!");
+            }else
+            {
+                try
                 {
-                    IsValid = false;
-                    break;
+                    inputNum = Convert.ToInt32(input);
+                    switch(inputNum)
+                    {
+                        case 0:
+                            isFinished = true;
+                            Console.Clear();
+                            break;
+                        case 1:
+                            Console.Clear();
+                            DataManipulator.movieSearch();
+                            break;
+                        case 2:
+                            Console.Clear();
+                            DataManipulator.addMovie();
+                            break;
+                        case 3:
+                            Console.Clear();    
+                            DataManipulator.updateMovie();
+                            break;
+                        case 4:
+                            Console.Clear();
+                            DataManipulator.deleteMovie();
+                            break;
+                        default:
+                            Console.Clear();
+                            Logging.logX("Please enter a valid menu option!");
+                            break;
+                    }
+                }catch(Exception ex)
+                {
+                    Console.Clear();
+                    Logging.log("Please enter a valid menu option!", ex);
                 }
-
-                Console.WriteLine();
-                Console.Write("Invalid, Please ");
-                Console.Write($"Select ({string.Join(',', _validChoices.ToArray())},{_exitKey})> ");
-                key = Console.ReadKey().KeyChar;
-            }
-
-            return key;
-        }
-
-        public Movie GetMovieDetails()
-        {
-            // get input from user
-            return new Movie { Title = "Marvel Man", Genres = "Action" };
-        }
-
-        public void Process(char userSelection)
-        {
-            switch (userSelection)
-            {
-                case '1':
-                    // List movies
-                    Console.WriteLine();
-                    ConsoleTable.From<Movie>(_context.GetMovies()).Write();
-                    break;
-                case '2':
-                    // Ask user to enter movie details
-                    var movie = GetMovieDetails();
-                    _context.AddMovie(movie);
-                    Console.WriteLine($"\nYour movie {movie.Title} has been added!\n");
-                    break;
             }
         }
     }
