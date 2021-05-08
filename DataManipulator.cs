@@ -170,7 +170,8 @@ namespace MovieLibraryOO
         {
             Console.WriteLine("Search by:");
             Console.WriteLine("1. ID (More Accurate)");
-            Console.WriteLine("2. Keyword Search (Less Specific)\n");
+            Console.WriteLine("2. Keyword Search (Less Specific)");
+            Console.WriteLine("3. Print all Movies (May take awhile)\n"); //Added print all movies function...
             Console.Write("Menu Option (0 to exit): ");
             string input = Console.ReadLine();
             switch(input)
@@ -179,6 +180,12 @@ namespace MovieLibraryOO
                     return findUpdateMovieById();
                 case "2":
                     return findUpdateMovieByKeyword();
+                case "3":
+                    //Added this method - prints all movies... | Possibly fix this method by not returning a movie.
+                    printAllMovies();
+                    Console.Write("Press any key to exit...");
+                    Console.Read();
+                    return null;
                 case "0":
                     Console.Clear();
                     return null;
@@ -189,6 +196,20 @@ namespace MovieLibraryOO
                     break;
             }
             return null;
+        }
+
+        public static void printAllMovies() 
+        {
+            using (var db = new MovieContext()) 
+            {
+                Console.WriteLine("Printing Movies...");
+                var query = db.Movies.ToList();
+                foreach(Movie movie in query) 
+                {
+                    Console.WriteLine($"[{movie.Id}] - '{movie.Title}' - ({movie.ReleaseDate})");
+                }
+                
+            }
         }
 
         public static Movie findUpdateMovieById()
