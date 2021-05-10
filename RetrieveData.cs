@@ -168,11 +168,6 @@ namespace MovieLibraryOO
             return output;
         }
 
-        public void viewTopRated() 
-        {
-
-        }
-
         public User findUser()
         {
             User foundUser;

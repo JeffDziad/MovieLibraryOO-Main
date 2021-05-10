@@ -75,7 +75,6 @@ namespace MovieLibraryOO
             Console.WriteLine("0. Back");
             Console.WriteLine("1. Search Movie");
             Console.WriteLine("2. Print All Movies");
-            Console.WriteLine("3. Top Rated Movie\n");
             Console.Write("Menu Option: ");
             handleMovieInput(Console.ReadLine());
         }
@@ -104,10 +103,6 @@ namespace MovieLibraryOO
                         case 2:
                             Console.Clear();
                             retriever.printAllMovies();
-                            break;
-                        case 3:
-                            Console.Clear();
-                            retriever.viewTopRated();
                             break;
                         default:
                             Console.Clear();

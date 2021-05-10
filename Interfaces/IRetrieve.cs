@@ -9,7 +9,6 @@ namespace MovieLibraryOO
         void movieSearch();
         Movie findMovie();
         void printAllMovies();
-        void viewTopRated();
         User findUser();
         List<Occupation> getOccupations(long occupationID);
     }
