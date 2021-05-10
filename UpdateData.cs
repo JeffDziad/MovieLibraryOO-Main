@@ -29,7 +29,7 @@ namespace MovieLibraryOO
                     db.Movies.Add(newMovie);
                     Console.Clear();
                     var maxId = db.Movies.Max(table => table.Id);
-                    Console.WriteLine($"Added [{maxId + 1}] ['{newMovie.Title}' - ({newMovie.ReleaseDate})] to the Movies table!");
+                    Console.WriteLine($"Added [{maxId + 1}] - ['{newMovie.Title}' - ({newMovie.ReleaseDate})] to the Movies table!");
                     db.SaveChanges();
                 }
             }
