@@ -9,8 +9,6 @@ namespace MovieLibraryOO
 {
     public class RetrieveData : IRetrieve
     {
-        private static IUpdate updater = DependencyInjection.getIUpdate();
-
         public void movieSearch()
         {
             Console.WriteLine(@"█▀ █▀▀ ▄▀█ █▀█ █▀▀ █░█");
@@ -119,7 +117,6 @@ namespace MovieLibraryOO
                 }
             }
             Console.WriteLine();
-            //Console.Clear();
             return output;
         }
 
