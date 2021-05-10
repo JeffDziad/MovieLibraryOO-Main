@@ -15,7 +15,7 @@ namespace MovieLibraryOO
             Console.WriteLine(@"                                                                                   ");
             do
             {
-                Menu.MainMenu();
+                Menu.runMainMenu();
             }while(!(Menu.getIsFinished()));
         }
     }

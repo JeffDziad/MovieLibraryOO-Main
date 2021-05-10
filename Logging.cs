@@ -12,7 +12,7 @@ namespace MovieLibraryOO
         public static void log(string msg, Exception ex)
         {
             Logger.Warn(msg);
-            Logger.Debug(ex.StackTrace);
+            Logger.Debug(ex.ToString);
         }
 
         public static void logX(string msg)
